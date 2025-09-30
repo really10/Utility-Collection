@@ -46,7 +46,7 @@ namespace Utility
                 ws1.Column(2).Width = 15;
                 ws1.Column(3).Width = 15;
                 ws1.Column(4).Width = 15;
-                ws1.Column(5).Width = 15;
+                ws1.Column(5).Width = 20;
                 ws1.Column(6).Width = 15;
                 ws1.Column(7).Width = 20;
 
@@ -59,7 +59,7 @@ namespace Utility
                 titleCell.Style.Font.SetFontSize(16);
                 SetHVCenter(titleCell);
 
-                List<String> cn1 = new List<String>() { "车号", "毛重（公斤）", "皮重（公斤）", "净重（公斤）", "土方数（米3）", "车数", "备注" };
+                List<String> cn1 = new List<String>() { "车号", "毛重（公斤）", "皮重（公斤）", "净重（公斤）", "土方数（立方米）", "车数", "备注" };
 
                 row = 2;
                 ws1.Row(row).Height = 25;
@@ -77,7 +77,7 @@ namespace Utility
                 long grossWeights = 0;
                 long tareWeights = 0;
                 long netWeights = 0;
-                long cubics = 0;
+                decimal cubics = 0;
                 long nums = 0;
 
                 row = 3;
@@ -182,7 +182,7 @@ namespace Utility
                 long sumGross = 0;
                 long sumTare = 0;
                 long sumNet = 0;
-                long sumCubic = 0;
+                decimal sumCubic = 0;
                 long sumNum = 0;
                 foreach (var d in data)
                 {
@@ -292,7 +292,7 @@ namespace Utility
                 var grossWeightTime = ProcessRowDateTime(row["毛重时间"]);
                 var tareWeightTime = ProcessRowDateTime(row["皮重时间"]);
                 var unit = ProcessRowString(row["发货单位"]);
-                var cubic = ProcessRowInt(row["土方数"]);
+                var cubic = ProcessRowDecimal(row["土方数"]);
 
                 //如果是个新车牌，则把上一辆车的数据保存起来。
                 if (carNumber != tmpCarNumber)
@@ -374,6 +374,18 @@ namespace Utility
             return null;
         }
 
+        private decimal ProcessRowDecimal(object value)
+        {
+            if (value != null)
+            {
+                if (decimal.TryParse(value.ToString(), out decimal result))
+                {
+                    return result;
+                }
+            }
+            return 0;
+        }
+
         public void BuildTotalReport(string filePath, string title, DataTable dt)
         {
             if (string.IsNullOrEmpty(filePath))
@@ -395,7 +407,7 @@ namespace Utility
                 worksheet.Column(2).Width = 15;
                 worksheet.Column(3).Width = 15;
                 worksheet.Column(4).Width = 15;
-                worksheet.Column(5).Width = 15;
+                worksheet.Column(5).Width = 20;
                 worksheet.Column(6).Width = 15;
                 worksheet.Column(7).Width = 20;
 
@@ -443,7 +455,7 @@ namespace Utility
                 long grossWeights = SumValue(dt, 1);
                 long tareWeights = SumValue(dt, 2);
                 long netWeights = SumValue(dt, 3);
-                long cubics = SumValue(dt, 4);
+                decimal cubics = SumDecimalValue(dt, 4);
                 long nums = SumValue(dt, 5);
 
                 worksheet.Row(row).Height = 25;
@@ -542,6 +554,20 @@ namespace Utility
             }
             return sum;
         }
+        private decimal SumDecimalValue(DataTable dt, int column)
+        {
+            decimal sum = 0;
+            foreach (DataRow row in dt.Rows)
+            {
+                var obj = row[column];
+                if (obj == null) continue;
+                if (decimal.TryParse(obj.ToString(), out var val))
+                {
+                    sum += val;
+                }
+            }
+            return sum;
+        }
 
         private void SetFontBold(IXLCell cell)
         {
@@ -587,7 +613,7 @@ namespace Utility
             public int GrossWeight { get; set; }
             public int TareWeight { get; set; }
             public int NetWeight { get; set; }
-            public int Cubic { get; set; }
+            public decimal Cubic { get; set; }
             public int Num { get; set; }
             public string remark { get; set; }
         }
@@ -602,7 +628,7 @@ namespace Utility
 
             public DateTime? GrossWeightTime { get; set; }
             public DateTime? TareWeightTime { get; set; }
-            public int Cubic { get; set; }
+            public decimal Cubic { get; set; }
             public string Unit { get; set; }
         }
 

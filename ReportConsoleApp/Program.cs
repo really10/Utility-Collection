@@ -15,12 +15,12 @@ namespace ReportConsoleApp
         {
             ReportUtil reportUtil = new ReportUtil();
 
-            //string title1 = "镇燕子浜河道整治工程汇总"; //报表标题
-            //string filePath1 = "D:\\t1.xlsx"; //报表保存路径
-            ////报表测试数据
-            //var dt1 = BuildTotalReportData();
+            string title1 = "镇燕子浜河道整治工程汇总"; //报表标题
+            string filePath1 = "D:\\t1.xlsx"; //报表保存路径
+            //报表测试数据
+            var dt1 = BuildTotalReportData();
 
-            //reportUtil.BuildTotalReport(filePath1, title1, dt1);
+            reportUtil.BuildTotalReport(filePath1, title1, dt1);
 
             string title2s1 = "8月6日镇燕子浜河道整治工程汇总"; //报表标题-第一个Sheet
             string title2s2 = "镇燕子浜河道整治工程8月6日土方数量统计明细表"; //报表标题-第二个Sheet
@@ -42,20 +42,20 @@ namespace ReportConsoleApp
             dt1.Columns.Add("毛重（公斤）", typeof(int));
             dt1.Columns.Add("皮重（公斤）", typeof(int));
             dt1.Columns.Add("净重（公斤）", typeof(int));
-            dt1.Columns.Add("土方数（米3）", typeof(int));
+            dt1.Columns.Add("土方数（立方米）", typeof(decimal));
             dt1.Columns.Add("车数", typeof(int));
             dt1.Columns.Add("备注", typeof(string));
 
             //数据
-            dt1.Rows.Add(GetRow(dt1, "2025年8月6日", 1444540, 492180, 952360, 528, 44, null));
-            dt1.Rows.Add(GetRow(dt1, "2025年8月7日", 427940, 145720, 282220, 156, 13, null));
-            dt1.Rows.Add(GetRow(dt1, "2025年8月8日", 643580, 222000, 421580, 235, 20, null));
-            dt1.Rows.Add(GetRow(dt1, "2025年8月9日", 817420, 274240, 543180, 302, 25, null));
-            dt1.Rows.Add(GetRow(dt1, "2025年8月10日", 1021440, 330120, 691320, 384, 30, null));
+            dt1.Rows.Add(GetRow(dt1, "2025年8月6日", 1444540, 492180, 952360, 528.5M, 44, null));
+            dt1.Rows.Add(GetRow(dt1, "2025年8月7日", 427940, 145720, 282220, 156.0M, 13, null));
+            dt1.Rows.Add(GetRow(dt1, "2025年8月8日", 643580, 222000, 421580, 235.0M, 20, null));
+            dt1.Rows.Add(GetRow(dt1, "2025年8月9日", 817420, 274240, 543180, 302.3M, 25, null));
+            dt1.Rows.Add(GetRow(dt1, "2025年8月10日", 1021440, 330120, 691320, 384.0M, 30, null));
 
             return dt1;
 
-            DataRow GetRow(DataTable dt, string data, int gross, int tare, int net, int cubic, int num, string remark)
+            DataRow GetRow(DataTable dt, string data, int gross, int tare, int net, decimal cubic, int num, string remark)
             {
                 var row = dt.NewRow();
                 row[0] = data;
@@ -74,14 +74,14 @@ namespace ReportConsoleApp
         {
             DataTable dt1 = new DataTable();
             //标题
-            dt1.Columns.Add("序号", typeof(int));
+            dt1.Columns.Add("序号", typeof(string));
             dt1.Columns.Add("车号", typeof(string));
             dt1.Columns.Add("毛重", typeof(int));
             dt1.Columns.Add("皮重", typeof(int));
             dt1.Columns.Add("净重", typeof(int));
             dt1.Columns.Add("毛重时间", typeof(DateTime));
             dt1.Columns.Add("皮重时间", typeof(DateTime));
-            dt1.Columns.Add("土方数", typeof(int));
+            dt1.Columns.Add("土方数", typeof(decimal));
             dt1.Columns.Add("发货单位", typeof(string));
 
             //数据
