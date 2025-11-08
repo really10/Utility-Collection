@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportConsoleApp", "ReportConsoleApp\ReportConsoleApp.csproj", "{0A53390A-5B22-453E-80BC-9239C60ACD46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleRegistrationReporter", "VehicleRegistrationReporter\VehicleRegistrationReporter.csproj", "{36C710DD-A3E6-48C1-A380-CC9F6D3F864B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0A53390A-5B22-453E-80BC-9239C60ACD46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A53390A-5B22-453E-80BC-9239C60ACD46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A53390A-5B22-453E-80BC-9239C60ACD46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36C710DD-A3E6-48C1-A380-CC9F6D3F864B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C710DD-A3E6-48C1-A380-CC9F6D3F864B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C710DD-A3E6-48C1-A380-CC9F6D3F864B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36C710DD-A3E6-48C1-A380-CC9F6D3F864B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
