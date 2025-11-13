@@ -13,12 +13,14 @@ namespace VehicleRegistrationReporter.DataApi
     {
         private RestClient client;
         private string apiUrl;
+        private string aesKey;
         private Action<string> WriteLog;
 
-        public ApiHelper(string apiUrl, Action<string> writeLog)
+        public ApiHelper(string apiUrl, string aesKey, Action<string> writeLog)
         {
             this.client = new RestClient();
             this.apiUrl = apiUrl;
+            this.aesKey = aesKey;
             if (writeLog != null)
             {
                 this.WriteLog = writeLog;
@@ -27,7 +29,11 @@ namespace VehicleRegistrationReporter.DataApi
             { this.WriteLog = DefaultWriteLog; }
         }
 
-        public string WriteObjectOut(string id, string name, string authCode, WeightData data)
+        public ApiHelper(string apiUrl, string aesKey) : this(apiUrl, aesKey, null)
+        {
+        }
+
+        public ResponseData WriteObjectOut(string id, string name, string authCode, WeightData data)
         {
             var jsonData = JsonConvert.SerializeObject(data);
             var crcCode = GenerateClearCRC(jsonData);
@@ -40,11 +46,15 @@ namespace VehicleRegistrationReporter.DataApi
             request.AddParameter("jkYhm", name);
             request.AddParameter("jkSqm", authCode);
             request.AddParameter("crcCode", crcCode);
-            request.AddParameter("jsonData", jsonData);
+
+            var jsonDataCipher = AesEncryption.AesEncrypt(jsonData, aesKey);
+
+            request.AddParameter("jsonData", jsonDataCipher);
 
             WriteLog("--------准备发送数据--------");
             WriteLog($"校验码：{crcCode}");
             WriteLog($"数据：{jsonData}");
+            WriteLog($"数据密文：{jsonDataCipher}");
 
             var response = client.Execute(request);
             var content = response.Content;
@@ -52,7 +62,21 @@ namespace VehicleRegistrationReporter.DataApi
             WriteLog($"返回状态：{response.StatusCode}");
             WriteLog($"返回数据：{content}");
 
-            return content;
+            if(!response.IsSuccessful)
+            {
+                var errors = GetErrorMessages(response.ErrorException);
+                foreach( var error in errors )
+                {
+                    WriteLog($"错误：{error}");
+                }
+            }
+            else
+            {
+                var result = JsonConvert.DeserializeObject<ResponseData>(content);
+                return result;
+            }
+
+            return null;
         }
 
 
@@ -60,6 +84,27 @@ namespace VehicleRegistrationReporter.DataApi
         {
             if (client != null) { client.Dispose(); }
         }
+
+        private List<string> GetErrorMessages(Exception ex)
+        {
+            var result = new List<string>();
+            if (ex != null) 
+            { 
+                result.Add(ex.Message); 
+                ex = ex.InnerException;
+                if(ex != null)
+                {
+                    result.Add(ex.Message);
+                    ex = ex.InnerException;
+                    if (ex != null)
+                    {
+                        result.Add(ex.Message);
+                    }
+                }
+            }
+            return result;
+        }
+
 
         // ===============================================================================
         // CRC 校验生成代码。

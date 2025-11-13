@@ -30,16 +30,41 @@ namespace VehicleRegistrationReporter
 
         private void btnInvoke_Click(object sender, EventArgs e)
         {
+            //var str = "ABCDEFGH0099";
+            //var key = "0123456789ABCDEF";
+
+            //var chiper = AesEncryption.AesEncrypt(str, key);
+            //this.WriteLog(chiper);
+
             //var text = "http://127.0.0.1:8080/projectName/services/writeObjectOut";
             //var crc = ApiHelper.GenerateClearCRC(text);
             //rtx.Text = crc;
+
+            var aesKey = "0123456789ABCDEF";
 
             var testDataStr = rtxData.Text;
             WeightData testData;
 
             try
             {
+                //这里是为了方便测试，所以才直接从界面输入的JSON反序列化回来。
                 testData = JsonConvert.DeserializeObject<WeightData>(testDataStr);
+                //正式使用，可以参考下面的代码。按真实的对象数据进行赋值。
+                //======================================
+                WeightData data = new WeightData();
+                data.InOutType = "in"; //Varchar(10)，进出类型 in-进，out-出
+                data.CardNumber = "粤CYX010"; //Varchar(12) 
+                data.CardColor = "蓝色"; //Varchar(2)，示例中没有描述，假定是两个汉字
+                data.EnterTime = DateTime.Now;
+                data.ItemName = "1"; //Varchar(2),货物名称:1-产品; 2-副产品; 3-原辅材料; 4-燃料; 5-其他
+                data.NetWeight = 34.56M; //Double(16,2)
+                data.GrossWeight = 32.12M; //Double(16,2)
+                data.TareWeight = 30.08M; //Double(16,2)
+                data.ItemDetail = "货物明细"; //Varchar
+                data.CompanyNumber = "企业编号"; //Varchar
+                //delayMinute 延迟推送分钟 Int 无须填报 默认值为60，特殊情况可以传该参数，正常情况无需上传改字段
+                //======================================
+
             }
             catch (Exception ex)
             {
@@ -61,17 +86,20 @@ namespace VehicleRegistrationReporter
                 MessageBox.Show("请输入正确的【接口地址】！");
                 return;
             }
-
-            using (var apiHelper = new ApiHelper(url, WriteLog))
+            //初始化API对象。如果对应的环境中，没有WriteLog的这种日志打印委托，可以使用 new ApiHelper(url)进行初始化。
+            using (var apiHelper = new ApiHelper(url, aesKey, WriteLog))
             {
-                var jkId = txtId.Text;
-                var jkYhm = txtName.Text;
-                var jkSqm = txtAuthCode.Text;
+                var jkId = txtId.Text; //接口标识
+                var jkYhm = txtName.Text; //接口用户名
+                var jkSqm = txtAuthCode.Text; //接口授权码
 
                 try
                 {
-
-                    apiHelper.WriteObjectOut(jkId, jkYhm, jkSqm, testData);
+                    ResponseData result = apiHelper.WriteObjectOut(jkId, jkYhm, jkSqm, testData);
+                    if(result != null)
+                    {
+                        // 表示调用成功，处理 result 返回的内容。比如 result.Code 等。
+                    }
                 }
                 catch(Exception ex)
                 {

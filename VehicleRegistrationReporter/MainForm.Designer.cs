@@ -31,19 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtUrl = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtId = new System.Windows.Forms.TextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
+            this.btnInvoke = new System.Windows.Forms.Button();
             this.txtAuthCode = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtId = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtUrl = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rtxData = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.rtx = new System.Windows.Forms.RichTextBox();
-            this.btnInvoke = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -77,40 +77,39 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "接口信息";
             // 
-            // label2
+            // btnInvoke
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 23);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "接口地址：";
+            this.btnInvoke.Location = new System.Drawing.Point(675, 109);
+            this.btnInvoke.Name = "btnInvoke";
+            this.btnInvoke.Size = new System.Drawing.Size(75, 23);
+            this.btnInvoke.TabIndex = 10;
+            this.btnInvoke.Text = "调用接口";
+            this.btnInvoke.UseVisualStyleBackColor = true;
+            this.btnInvoke.Click += new System.EventHandler(this.btnInvoke_Click);
             // 
-            // txtUrl
+            // txtAuthCode
             // 
-            this.txtUrl.Location = new System.Drawing.Point(104, 20);
-            this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(661, 21);
-            this.txtUrl.TabIndex = 3;
-            this.txtUrl.Text = "http://127.0.0.1:8080/projectName/services/writeObjectOut";
+            this.txtAuthCode.Location = new System.Drawing.Point(104, 111);
+            this.txtAuthCode.Name = "txtAuthCode";
+            this.txtAuthCode.Size = new System.Drawing.Size(245, 21);
+            this.txtAuthCode.TabIndex = 9;
+            this.txtAuthCode.Text = "12345678";
             // 
-            // label3
+            // txtName
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 54);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 12);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "接口标识：";
+            this.txtName.Location = new System.Drawing.Point(104, 81);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(245, 21);
+            this.txtName.TabIndex = 8;
+            this.txtName.Text = "3301000001";
             // 
-            // label4
+            // txtId
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 84);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "点位编号：";
+            this.txtId.Location = new System.Drawing.Point(104, 51);
+            this.txtId.Name = "txtId";
+            this.txtId.Size = new System.Drawing.Size(245, 21);
+            this.txtId.TabIndex = 7;
+            this.txtId.Text = "ZJYGJCJKW01";
             // 
             // label5
             // 
@@ -121,36 +120,47 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "接口授权码：";
             // 
-            // txtId
+            // label4
             // 
-            this.txtId.Location = new System.Drawing.Point(104, 51);
-            this.txtId.Name = "txtId";
-            this.txtId.Size = new System.Drawing.Size(245, 21);
-            this.txtId.TabIndex = 7;
-            this.txtId.Text = "ZJYGJCJKW01";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 84);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "点位编号：";
             // 
-            // txtName
+            // label3
             // 
-            this.txtName.Location = new System.Drawing.Point(104, 81);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(245, 21);
-            this.txtName.TabIndex = 8;
-            this.txtName.Text = "3301000001";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 54);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 12);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "接口标识：";
             // 
-            // txtAuthCode
+            // txtUrl
             // 
-            this.txtAuthCode.Location = new System.Drawing.Point(104, 111);
-            this.txtAuthCode.Name = "txtAuthCode";
-            this.txtAuthCode.Size = new System.Drawing.Size(245, 21);
-            this.txtAuthCode.TabIndex = 9;
-            this.txtAuthCode.Text = "12345678";
+            this.txtUrl.Location = new System.Drawing.Point(104, 20);
+            this.txtUrl.Name = "txtUrl";
+            this.txtUrl.Size = new System.Drawing.Size(661, 21);
+            this.txtUrl.TabIndex = 3;
+            this.txtUrl.Text = "http://127.0.0.1:8080/projectName/services/writeObjectOut";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "接口地址：";
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.rtxData);
             this.groupBox2.Location = new System.Drawing.Point(17, 191);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(403, 445);
+            this.groupBox2.Size = new System.Drawing.Size(321, 445);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "提交数据";
@@ -159,16 +169,16 @@
             // 
             this.rtxData.Location = new System.Drawing.Point(6, 20);
             this.rtxData.Name = "rtxData";
-            this.rtxData.Size = new System.Drawing.Size(391, 419);
+            this.rtxData.Size = new System.Drawing.Size(309, 419);
             this.rtxData.TabIndex = 0;
             this.rtxData.Text = resources.GetString("rtxData.Text");
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.rtx);
-            this.groupBox3.Location = new System.Drawing.Point(437, 191);
+            this.groupBox3.Location = new System.Drawing.Point(344, 191);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(351, 445);
+            this.groupBox3.Size = new System.Drawing.Size(444, 445);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "执行结果";
@@ -178,19 +188,9 @@
             this.rtx.Location = new System.Drawing.Point(6, 20);
             this.rtx.Name = "rtx";
             this.rtx.ReadOnly = true;
-            this.rtx.Size = new System.Drawing.Size(339, 419);
+            this.rtx.Size = new System.Drawing.Size(432, 419);
             this.rtx.TabIndex = 0;
             this.rtx.Text = "";
-            // 
-            // btnInvoke
-            // 
-            this.btnInvoke.Location = new System.Drawing.Point(675, 109);
-            this.btnInvoke.Name = "btnInvoke";
-            this.btnInvoke.Size = new System.Drawing.Size(75, 23);
-            this.btnInvoke.TabIndex = 10;
-            this.btnInvoke.Text = "调用接口";
-            this.btnInvoke.UseVisualStyleBackColor = true;
-            this.btnInvoke.Click += new System.EventHandler(this.btnInvoke_Click);
             // 
             // MainForm
             // 
