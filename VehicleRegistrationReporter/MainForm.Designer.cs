@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtKey = new System.Windows.Forms.TextBox();
+            this.lblkey = new System.Windows.Forms.Label();
             this.btnInvoke = new System.Windows.Forms.Button();
             this.txtAuthCode = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -61,6 +63,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtKey);
+            this.groupBox1.Controls.Add(this.lblkey);
             this.groupBox1.Controls.Add(this.btnInvoke);
             this.groupBox1.Controls.Add(this.txtAuthCode);
             this.groupBox1.Controls.Add(this.txtName);
@@ -77,6 +81,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "接口信息";
             // 
+            // txtKey
+            // 
+            this.txtKey.Location = new System.Drawing.Point(441, 50);
+            this.txtKey.Name = "txtKey";
+            this.txtKey.Size = new System.Drawing.Size(194, 21);
+            this.txtKey.TabIndex = 12;
+            this.txtKey.Text = "t385Xir3L1oOXyUG";
+            // 
+            // lblkey
+            // 
+            this.lblkey.AutoSize = true;
+            this.lblkey.Location = new System.Drawing.Point(393, 54);
+            this.lblkey.Name = "lblkey";
+            this.lblkey.Size = new System.Drawing.Size(41, 12);
+            this.lblkey.TabIndex = 11;
+            this.lblkey.Text = "密钥：";
+            // 
             // btnInvoke
             // 
             this.btnInvoke.Location = new System.Drawing.Point(675, 109);
@@ -89,54 +110,54 @@
             // 
             // txtAuthCode
             // 
-            this.txtAuthCode.Location = new System.Drawing.Point(104, 111);
+            this.txtAuthCode.Location = new System.Drawing.Point(126, 111);
             this.txtAuthCode.Name = "txtAuthCode";
             this.txtAuthCode.Size = new System.Drawing.Size(245, 21);
             this.txtAuthCode.TabIndex = 9;
-            this.txtAuthCode.Text = "12345678";
+            this.txtAuthCode.Text = "RULHhtEo";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(104, 81);
+            this.txtName.Location = new System.Drawing.Point(126, 81);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(245, 21);
             this.txtName.TabIndex = 8;
-            this.txtName.Text = "3301000001";
+            this.txtName.Text = "330100251120000739";
             // 
             // txtId
             // 
-            this.txtId.Location = new System.Drawing.Point(104, 51);
+            this.txtId.Location = new System.Drawing.Point(126, 51);
             this.txtId.Name = "txtId";
             this.txtId.Size = new System.Drawing.Size(245, 21);
             this.txtId.TabIndex = 7;
-            this.txtId.Text = "ZJYGJCJKW01";
+            this.txtId.Text = "CENTRALJKW002";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(16, 114);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(77, 12);
+            this.label5.Size = new System.Drawing.Size(107, 12);
             this.label5.TabIndex = 6;
-            this.label5.Text = "接口授权码：";
+            this.label5.Text = "授权码（jkSqm）：";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(16, 84);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.Size = new System.Drawing.Size(107, 12);
             this.label4.TabIndex = 5;
-            this.label4.Text = "点位编号：";
+            this.label4.Text = "用户名（jkYhm）：";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 54);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 12);
+            this.label3.Size = new System.Drawing.Size(89, 12);
             this.label3.TabIndex = 4;
-            this.label3.Text = "接口标识：";
+            this.label3.Text = "编号（jkId）：";
             // 
             // txtUrl
             // 
@@ -144,7 +165,7 @@
             this.txtUrl.Name = "txtUrl";
             this.txtUrl.Size = new System.Drawing.Size(661, 21);
             this.txtUrl.TabIndex = 3;
-            this.txtUrl.Text = "http://127.0.0.1:8080/projectName/services/writeObjectOut";
+            this.txtUrl.Text = "https://jpc.star7.cn:449/mobile-epost-exg/works/swap/nozzle/1_0/writeObjectOut";
             // 
             // label2
             // 
@@ -229,6 +250,8 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.RichTextBox rtx;
         private System.Windows.Forms.Button btnInvoke;
+        private System.Windows.Forms.TextBox txtKey;
+        private System.Windows.Forms.Label lblkey;
     }
 }
 

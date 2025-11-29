@@ -40,7 +40,7 @@ namespace VehicleRegistrationReporter
             //var crc = ApiHelper.GenerateClearCRC(text);
             //rtx.Text = crc;
 
-            var aesKey = "0123456789ABCDEF";
+            var aesKey = txtKey.Text;
 
             var testDataStr = rtxData.Text;
             WeightData testData;
@@ -95,7 +95,8 @@ namespace VehicleRegistrationReporter
 
                 try
                 {
-                    ResponseData result = apiHelper.WriteObjectOut(jkId, jkYhm, jkSqm, testData);
+                    var testDatas = new WeightData[] { testData };
+                    ResponseData result = apiHelper.WriteObjectOut(jkId, jkYhm, jkSqm, testDatas);
                     if(result != null)
                     {
                         // 表示调用成功，处理 result 返回的内容。比如 result.Code 等。

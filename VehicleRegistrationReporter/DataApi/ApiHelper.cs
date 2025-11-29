@@ -33,28 +33,33 @@ namespace VehicleRegistrationReporter.DataApi
         {
         }
 
-        public ResponseData WriteObjectOut(string id, string name, string authCode, WeightData data)
+        public ResponseData WriteObjectOut(string id, string name, string authCode, WeightData[] data)
         {
             var jsonData = JsonConvert.SerializeObject(data);
-            var crcCode = GenerateClearCRC(jsonData);
+            //明文的 CRC 校验码, 备用。
+            //var crcCodePlainText = GenerateClearCRC(jsonData);
 
             var request = new RestRequest(apiUrl);
             request.Method = Method.Post;
             request.RequestFormat = DataFormat.None;
 
+            var jsonDataCipher = AesEncryption.AesEncrypt(jsonData, aesKey);
+            var crcCodeCipher = GenerateClearCRC(jsonDataCipher);
+
             request.AddParameter("jkId", id);
             request.AddParameter("jkYhm", name);
             request.AddParameter("jkSqm", authCode);
-            request.AddParameter("crcCode", crcCode);
-
-            var jsonDataCipher = AesEncryption.AesEncrypt(jsonData, aesKey);
-
+            request.AddParameter("crcCode", crcCodeCipher);
             request.AddParameter("jsonData", jsonDataCipher);
 
             WriteLog("--------准备发送数据--------");
-            WriteLog($"校验码：{crcCode}");
-            WriteLog($"数据：{jsonData}");
-            WriteLog($"数据密文：{jsonDataCipher}");
+            WriteLog($"原始数据：{jsonData}");
+            WriteLog("--------发送的FormData数据--------");
+            WriteLog($"接口标识(jkId)：{id}");
+            WriteLog($"接口用户名(jkYhm)：{name}");
+            WriteLog($"接口授权码(jkSqm)：{authCode}");
+            WriteLog($"交换验证码(crcCode)：{crcCodeCipher}");
+            WriteLog($"数据(jsonData)：{jsonDataCipher}");
 
             var response = client.Execute(request);
             var content = response.Content;
@@ -85,23 +90,41 @@ namespace VehicleRegistrationReporter.DataApi
             if (client != null) { client.Dispose(); }
         }
 
-        private List<string> GetErrorMessages(Exception ex)
+        private List<string> GetErrorMessages(Exception ex, int maxLevels = 3)
         {
             var result = new List<string>();
-            if (ex != null) 
-            { 
-                result.Add(ex.Message); 
-                ex = ex.InnerException;
-                if(ex != null)
-                {
-                    result.Add(ex.Message);
-                    ex = ex.InnerException;
-                    if (ex != null)
-                    {
-                        result.Add(ex.Message);
-                    }
-                }
+            if (ex == null || maxLevels <= 0)
+            {
+                return result;
             }
+
+            int collected = 0;
+            var current = ex;
+
+            while (current != null && collected < maxLevels)
+            {
+                result.Add(current.Message);
+                collected++;
+
+                // If this is an AggregateException, try to include its inner exceptions' messages as well.
+                if (current is AggregateException agg)
+                {
+                    foreach (var inner in agg.InnerExceptions)
+                    {
+                        if (collected >= maxLevels) break;
+                        if (inner != null)
+                        {
+                            result.Add(inner.Message);
+                            collected++;
+                        }
+                    }
+                    // After expanding aggregate's inner exceptions, stop walking the single InnerException chain.
+                    break;
+                }
+
+                current = current.InnerException;
+            }
+
             return result;
         }
 
